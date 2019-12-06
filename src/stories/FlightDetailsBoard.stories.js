@@ -8,7 +8,7 @@ export default {
   title: "Flight Details Board"
 };
 
-const cards = [
+export const cards = [
   {
     status: "now boarding",
     carrier: <img alt="carrier" src={testImage} />,

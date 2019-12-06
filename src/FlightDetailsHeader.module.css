@@ -3,7 +3,6 @@
   flex-flow: row nowrap;
   color: white;
   white-space: nowrap;
-  font-family: "HelveticaNeueBold";
   justify-content: space-between;
 }
 
@@ -26,6 +25,8 @@
   font-size: 98pt;
 }
 
-.departureTime {
+.departureTime p {
   font-size: 114pt;
+  line-height: 130px;
+  text-transform: uppercase;
 }

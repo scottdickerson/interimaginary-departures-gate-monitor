@@ -8,8 +8,11 @@
   padding-bottom: 1rem;
   color: #808080;
   font-size: 62pt;
+  font-family: "HelveticaNeueRegular";
+  line-height: 80px;
 }
 
 .property p {
   margin: 0rem;
+  font-family: "HelveticaNeueRegular";
 }
