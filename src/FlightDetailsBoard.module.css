@@ -1,0 +1,18 @@
+.board {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.title {
+  background-color: #8f1d3b;
+  padding: 6rem 6rem 2rem 6rem;
+}
+
+.cards {
+  background-color: black;
+  padding: 6rem 6rem;
+}
+
+.cards > div + div {
+  padding-top: 6rem;
+}

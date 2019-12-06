@@ -1,6 +1,7 @@
 .card {
   display: flex;
   flex-flow: column nowrap;
+  border-bottom: 4px solid #808080;
 }
 
 .header {
@@ -15,4 +16,10 @@
   padding: 2rem 0rem;
   min-height: 10rem;
   border-bottom: 4px solid #808080;
+}
+
+.propertyText {
+  min-height: 10rem;
+  max-height: 10rem;
+  overflow-y: hidden;
 }

@@ -8,7 +8,7 @@ import FlightDetailsHeader, {
 
 import FlightProperty from "./FlightProperty";
 
-const propTypes = {
+export const FlightDetailsCardPropTypes = {
   ...FlightDetailsHeaderPropTypes,
   /** string or component describes the flight destination */
   destination: PropTypes.node.isRequired,
@@ -28,12 +28,12 @@ const FlightDetailsCard = ({ destination, details, ...headerProps }) => {
       <FlightDetailsHeader {...headerProps} className={styles.header} />
       {flightProperties.map(({ name, value, className }) => (
         <FlightProperty name={name} className={styles.property}>
-          <span className={className}>{value}</span>
+          <div className={className || styles.propertyText}>{value}</div>
         </FlightProperty>
       ))}
     </div>
   );
 };
 
-FlightDetailsCard.propTypes = propTypes;
+FlightDetailsCard.propTypes = FlightDetailsCardPropTypes;
 export default FlightDetailsCard;
