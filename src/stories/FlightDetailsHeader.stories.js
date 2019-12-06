@@ -1,7 +1,6 @@
 import React from "react";
 import FlightDetailsHeader from "../FlightDetailsHeader";
-// import testImage from "../imgs/Wistful.png";
-//<img alt="carrier" src={testImage} />
+import testImage from "../imgs/wistful.png";
 
 export default {
   title: "Flight Details Header"
@@ -10,7 +9,7 @@ export default {
 export const flightDetails = () => (
   <FlightDetailsHeader
     status="now boarding"
-    carrier="carrier"
+    carrier={<img alt="carrier" src={testImage} />}
     departureTime={1575663740}
   />
 );

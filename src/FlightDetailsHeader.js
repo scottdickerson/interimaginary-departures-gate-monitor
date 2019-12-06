@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./FlightDetailsHeader.module.css";
+import classnames from "classnames";
 import moment from "moment";
 import FlightProperty from "./FlightProperty";
+import VerticalLine from "./VerticalLine";
 
-const propTypes = {
+export const FlightDetailsHeaderPropTypes = {
   /** current flight status indicator */
   status: PropTypes.oneOf(["scheduled", "now boarding", "canceled"]).isRequired,
   /** usually a picture that describes the flight carrier */
@@ -13,15 +15,16 @@ const propTypes = {
   departureTime: PropTypes.number.isRequired
 };
 
-const FlightDetailsHeader = ({ status, carrier, departureTime }) => {
+const FlightDetailsHeader = ({ status, carrier, departureTime, className }) => {
   return (
-    <div className={styles.header}>
+    <div className={classnames(styles.header, className)}>
       <div>
         <div className={styles.status}>{status}</div>
       </div>
       <div>
-        <FlightProperty name="Carrier">Wistful</FlightProperty>
+        <FlightProperty name="Carrier">{carrier}</FlightProperty>
       </div>
+      <VerticalLine></VerticalLine>
       <div className={styles.departureTime}>
         <FlightProperty name="Departure time">
           {moment(departureTime).format("hh:mm a")}
@@ -31,6 +34,6 @@ const FlightDetailsHeader = ({ status, carrier, departureTime }) => {
   );
 };
 
-FlightDetailsHeader.propTypes = propTypes;
+FlightDetailsHeader.propTypes = FlightDetailsHeaderPropTypes;
 
 export default FlightDetailsHeader;

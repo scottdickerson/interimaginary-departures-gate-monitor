@@ -1,0 +1,18 @@
+.card {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.header {
+  border-bottom: 4px solid #808080;
+}
+
+.destination {
+  font-size: 178pt;
+}
+
+.property {
+  padding: 2rem 0rem;
+  min-height: 10rem;
+  border-bottom: 4px solid #808080;
+}

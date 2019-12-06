@@ -3,6 +3,8 @@
   flex-flow: row nowrap;
   color: white;
   white-space: nowrap;
+  font-family: "HelveticaNeueBold";
+  justify-content: space-between;
 }
 
 .header p {
