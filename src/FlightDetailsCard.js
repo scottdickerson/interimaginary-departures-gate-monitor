@@ -27,7 +27,11 @@ const FlightDetailsCard = ({ destination, details, ...headerProps }) => {
     <div className={styles.card}>
       <FlightDetailsHeader {...headerProps} className={styles.header} />
       {flightProperties.map(({ name, value, className }) => (
-        <FlightProperty name={name} className={styles.property}>
+        <FlightProperty
+          key={`${destination}-${name}`}
+          name={name}
+          className={styles.property}
+        >
           <div className={className || styles.propertyText}>{value}</div>
         </FlightProperty>
       ))}
