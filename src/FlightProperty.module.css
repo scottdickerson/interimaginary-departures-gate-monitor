@@ -1,0 +1,10 @@
+.property {
+  min-height: 3rem;
+  color: white;
+}
+
+.name {
+  padding-bottom: 1rem;
+  color: #808080;
+  font-size: 62pt;
+}
