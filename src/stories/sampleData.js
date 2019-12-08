@@ -1,37 +1,76 @@
-import testImage from "../imgs/wistful.png";
-import testImage2 from "../imgs/airlinguist.png";
-import faker from "faker";
+import wistful from "../imgs/wistful.png";
+import quantum from "../imgs/quantum.png";
 import React from "react";
 export const flights = [
   {
     status: "now boarding",
-    carrier: <img alt="carrier" src={testImage} />,
-    departureTime: 1575663740,
-    destination: "Annares",
+    carrier: <img alt="carrier" src={wistful} />,
+    departureTime: 1575826200000,
+    destination: "Anarres",
     details: [
+      {
+        name: "Transport",
+        value: "Hainish spaceship"
+      },
       {
         name: "Distance",
         value: "Eleven years at light speed"
       },
       {
-        name: "Long details",
-        value: faker.lorem.paragraph()
+        name: "Weather",
+        value: "Dry, cold, and windy"
+      },
+      {
+        name: "Atmosphere",
+        value: "Thin"
       }
     ]
   },
   {
     status: "scheduled",
-    carrier: <img alt="carrier" src={testImage2} />,
-    departureTime: 1575663740,
-    destination: "Brakebills",
+    carrier: <img alt="carrier" src={quantum} />,
+    departureTime: 1575829800000,
+    destination: "Arrakis",
     details: [
       {
-        name: "Distance",
-        value: "Four leagues and a labor"
+        name: "Transport",
+        value: "Spacing Guild Liner"
       },
       {
-        name: "Long details",
-        value: faker.lorem.paragraph()
+        name: "Duration of trip",
+        value: "Instantaneous"
+      },
+      {
+        name: "Weather",
+        value: "No precipitation, no water"
+      },
+      {
+        name: "Environment",
+        value: "A wasteland of nothing but spice and sandworms"
+      }
+    ]
+  },
+  {
+    status: "scheduled",
+    carrier: <img alt="carrier" src={wistful} />,
+    departureTime: 1575833400000,
+    destination: "Brigadoon",
+    details: [
+      {
+        name: "Transport",
+        value: "A well-organized miracle"
+      },
+      {
+        name: "Distance from Austin",
+        value: "4,602 miles"
+      },
+      {
+        name: "Duration of trip",
+        value: "One hundred years"
+      },
+      {
+        name: "Atmosphere",
+        value: "Highland mist blooming under sable skies"
       }
     ]
   }

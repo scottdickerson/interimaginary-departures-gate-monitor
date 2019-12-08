@@ -25,6 +25,6 @@ const FlightDetailsBoard = ({ flights }) => {
   );
 };
 
-FlightDetailsCardPropTypes.propTypes = propTypes;
+FlightDetailsBoard.propTypes = propTypes;
 
 export default FlightDetailsBoard;
