@@ -7,11 +7,12 @@
 
 .title {
   background-color: #8f1d3b;
-  padding: 6rem 6rem 2rem 6rem;
+  padding: 4rem 6rem 2rem 6rem;
 }
 
 .cards {
   padding: 6rem 6rem;
+  background-color: black;
 }
 
 .cards > div + div {

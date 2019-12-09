@@ -4,7 +4,7 @@
   color: white;
   white-space: nowrap;
   justify-content: space-between;
-  min-height: 10rem;
+  min-height: 8rem;
 }
 
 .header p {
@@ -23,11 +23,11 @@
   background-color: #8f1d3b;
   text-transform: capitalize;
   padding: 2rem;
-  font-size: 98pt;
+  font-size: 98px;
 }
 
 .departureTime p {
-  font-size: 114pt;
-  line-height: 130px;
+  font-size: 114px;
+  line-height: 114px;
   text-transform: uppercase;
 }

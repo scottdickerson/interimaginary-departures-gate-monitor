@@ -9,18 +9,18 @@
 }
 
 .destination {
-  font-size: 178pt;
-  line-height: 250px;
+  font-size: 178px;
+  line-height: 178px;
 }
 
 .property {
   padding: 2rem 0rem;
-  min-height: 10rem;
+  min-height: 8rem;
   border-bottom: 4px solid #808080;
 }
 
 .propertyText {
-  min-height: 10rem;
-  max-height: 10rem;
+  min-height: 8rem;
+  max-height: 8rem;
   overflow-y: hidden;
 }
