@@ -8,11 +8,18 @@
 
 .title {
   background-color: #8f1d3b;
-  padding: 4rem 6rem 2rem 6rem;
+  min-height: 426px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.title img {
+  margin-bottom: 4rem;
+  height: 218px;
 }
 
 .cards {
-  padding: 6rem 6rem;
+  padding: 4rem 162px;
   background-color: black;
 }
 

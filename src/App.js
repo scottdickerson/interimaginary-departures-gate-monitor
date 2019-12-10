@@ -7,7 +7,7 @@ import findIndex from "lodash/findIndex";
 import omit from "lodash/omit";
 import { fetchFlights } from "./FlightsAPI";
 
-const DEFAULT_FLIGHT_SEPARATION = 1;
+const DEFAULT_FLIGHT_SEPARATION = 5;
 
 function App() {
   const [currentTime, setCurrentTime] = useState(moment().valueOf());

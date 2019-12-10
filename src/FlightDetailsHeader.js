@@ -27,7 +27,7 @@ const FlightDetailsHeader = ({ status, carrier, departureTime, className }) => {
       <VerticalLine></VerticalLine>
       <div className={styles.departureTime}>
         <FlightProperty name="Departure time">
-          {moment(departureTime).format("hh:mm a")}
+          {moment(departureTime).format("h:mm a")}
         </FlightProperty>
       </div>
     </div>

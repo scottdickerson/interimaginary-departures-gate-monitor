@@ -14,20 +14,48 @@
 .header > div {
   padding-left: 2rem;
   padding-right: 2rem;
+  padding-bottom: 0.5rem;
 }
 .header > div:first-child {
   padding-left: 0rem;
+  padding-right: 0rem;
+  padding-bottom: 0rem;
+}
+
+.header > div:nth-child(2) {
+  padding-left: 138px;
+  padding-right: 0;
+}
+
+.header > div:nth-child(3) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.header > div:nth-child(4) {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0;
+}
+
+.header img {
+  width: 540px;
+  margin-left: -16px;
+  margin-top: -16px;
 }
 
 .status {
   background-color: #8f1d3b;
   text-transform: capitalize;
   padding: 2rem;
+  min-width: 648px;
   font-size: 98px;
+  text-align: center;
 }
 
 .departureTime p {
-  font-size: 114px;
-  line-height: 114px;
+  font-size: 80px;
+  margin-top: -16px !important;
+  line-height: 100px;
   text-transform: uppercase;
 }
