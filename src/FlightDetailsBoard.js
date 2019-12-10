@@ -18,7 +18,11 @@ const FlightDetailsBoard = ({ flights }) => {
       </div>
       <div className={styles.cards}>
         {flights.map(flight => (
-          <FlightDetailsCard key={flight.destination} {...flight} />
+          <FlightDetailsCard
+            key={flight.destination}
+            {...flight}
+            carrier={<img src={flight.carrier} alt="Carrier" />}
+          />
         ))}
       </div>
     </div>

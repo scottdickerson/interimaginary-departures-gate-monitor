@@ -8,7 +8,7 @@ export default {
 
 export const flightDetails = () => (
   <FlightDetailsHeader
-    status="now boarding"
+    status="On Time"
     carrier={<img alt="carrier" src={testImage} />}
     departureTime={1575663740}
   />

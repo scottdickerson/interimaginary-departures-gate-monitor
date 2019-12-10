@@ -1,24 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import "./App.css";
-import { flights } from "./stories/sampleData";
 import FlightDetailsBoard from "./FlightDetailsBoard";
+import FlightDelayTimer from "./FlightDelayTimer";
 import moment from "moment";
 import findIndex from "lodash/findIndex";
-function App() {
-  const [currentTime, setCurrentTime] = useState(1575824400000);
+import omit from "lodash/omit";
+import { fetchFlights } from "./FlightsAPI";
 
+const DEFAULT_FLIGHT_SEPARATION = 1;
+
+function App() {
+  const [currentTime, setCurrentTime] = useState(moment().valueOf());
+  const [flights, setFlights] = useState([]);
+
+  const loadAndSetFlights = (separation = DEFAULT_FLIGHT_SEPARATION) => {
+    fetchFlights(separation).then(
+      (
+        flights // start the flights every 3 minutes
+      ) => {
+        console.log(
+          `flights response ${JSON.stringify(
+            flights.map(flight => omit(flight, ["carrier"])),
+            null,
+            2
+          )}`
+        );
+        setFlights(flights);
+      }
+    );
+  };
+
+  // load the flights data
+  useEffect(loadAndSetFlights, [setFlights]);
+
+  // update the current time every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(currentTime => {
-        console.log(`currentTime ${currentTime}`);
-        // If we're on the last one, then reset, otherwise increment by 30 minutes
-        return currentTime >= 1575833400000
-          ? 1575824400000
-          : moment(currentTime)
-              .add(30, "minutes")
-              .valueOf();
-      });
-    }, 1000);
+      setCurrentTime(moment().valueOf());
+    }, 30000);
     return () => clearInterval(interval);
   }, [setCurrentTime]);
 
@@ -30,13 +49,13 @@ function App() {
   });
 
   return (
-    <FlightDetailsBoard
-      flights={flights
-        .slice(nextFlight, nextFlight + 2)
-        .map((flight, index) =>
-          index === 0 ? { ...flight, status: "now boarding" } : flight
-        )}
-    />
+    <Fragment>
+      <FlightDelayTimer
+        defaultDelay={DEFAULT_FLIGHT_SEPARATION}
+        onChange={delay => loadAndSetFlights(delay)}
+      />
+      <FlightDetailsBoard flights={flights.slice(nextFlight, nextFlight + 2)} />
+    </Fragment>
   );
 }
 

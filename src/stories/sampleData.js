@@ -3,7 +3,7 @@ import quantum from "../imgs/quantum.png";
 import React from "react";
 export const flights = [
   {
-    status: "now boarding",
+    status: "On Time",
     carrier: <img alt="carrier" src={wistful} />,
     departureTime: 1575826200000,
     destination: "Anarres",
@@ -27,7 +27,7 @@ export const flights = [
     ]
   },
   {
-    status: "scheduled",
+    status: "Canceled",
     carrier: <img alt="carrier" src={quantum} />,
     departureTime: 1575829800000,
     destination: "Arrakis",
