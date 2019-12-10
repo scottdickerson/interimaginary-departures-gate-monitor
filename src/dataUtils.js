@@ -45,7 +45,7 @@ const imagepaths = {
 export const normalizeFlight = flight => {
   return {
     destination: flight["Location Name"],
-    status: flight["FIDS STATUS"],
+    status: flight["Departure Status"],
     carrier: imagepaths[flight["Airline"].replace(/ .*/, "").toLowerCase()],
     details: [
       { name: flight["Category 1"], value: flight["Narrative 1"] },

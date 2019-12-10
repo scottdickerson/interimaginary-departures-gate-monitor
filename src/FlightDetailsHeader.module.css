@@ -14,7 +14,7 @@
 .header > div {
   padding-left: 2rem;
   padding-right: 2rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
 }
 .header > div:first-child {
   padding-left: 0rem;

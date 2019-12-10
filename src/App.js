@@ -48,7 +48,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(moment().valueOf());
-    }, 30000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [setCurrentTime]);
 
@@ -58,7 +58,19 @@ function App() {
         defaultDelay={DEFAULT_FLIGHT_SEPARATION}
         onChange={delay => loadAndSetFlights(delay)}
       />
-      <FlightDetailsBoard flights={flights.slice(nextFlight, nextFlight + 2)} />
+      <FlightDetailsBoard
+        flights={flights
+          .slice(nextFlight, nextFlight + 2)
+          .map((flight, index) => ({
+            ...flight,
+            status:
+              flight.status === "Normal"
+                ? index === 0
+                  ? "Now Boarding"
+                  : "Scheduled"
+                : flight.status
+          }))}
+      />
     </Fragment>
   );
 }
