@@ -1,10 +1,9 @@
 import wistful from "../imgs/wistful.png";
 import quantum from "../imgs/quantum.png";
-import React from "react";
 export const flights = [
   {
     status: "On Time",
-    carrier: <img alt="carrier" src={wistful} />,
+    carrier: { wistful },
     departureTime: 1575826200000,
     destination: "Anarres",
     details: [
@@ -28,7 +27,7 @@ export const flights = [
   },
   {
     status: "Canceled",
-    carrier: <img alt="carrier" src={quantum} />,
+    carrier: quantum,
     departureTime: 1575829800000,
     destination: "Arrakis",
     details: [
@@ -52,7 +51,7 @@ export const flights = [
   },
   {
     status: "scheduled",
-    carrier: <img alt="carrier" src={wistful} />,
+    carrier: wistful,
     departureTime: 1575833400000,
     destination: "Brigadoon",
     details: [
