@@ -8,6 +8,6 @@ export default {
   decorators: [withKnobs]
 };
 
-export const stringValues = () => (
+export const flightDelayTimer = () => (
   <FlightDelayTimer delay={number("delay", 3)} onChange={action("onChange")} />
 );

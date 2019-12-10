@@ -4,7 +4,8 @@ import styles from "./FlightDelayTimer.module.css";
 
 const propTypes = {
   // callback to trigger when the input is changed
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  defaultDelay: PropTypes.number
 };
 
 const FlightDelayTimer = ({ onChange, defaultDelay }) => {
@@ -29,4 +30,7 @@ const FlightDelayTimer = ({ onChange, defaultDelay }) => {
 };
 
 FlightDelayTimer.propTypes = propTypes;
+FlightDelayTimer.defaultProps = {
+  defaultDelay: 3
+};
 export default FlightDelayTimer;

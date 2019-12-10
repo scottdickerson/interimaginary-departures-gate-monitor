@@ -3,7 +3,7 @@ import quantum from "../imgs/quantum.png";
 export const flights = [
   {
     status: "On Time",
-    carrier: { wistful },
+    carrier: wistful,
     departureTime: 1575826200000,
     destination: "Anarres",
     details: [
