@@ -30,8 +30,19 @@ function App() {
     );
   };
 
-  // load the flights data
-  useEffect(loadAndSetFlights, [setFlights]);
+  const nextFlight = findIndex(flights, flight => {
+    console.log(
+      `flight departureTime ${flight.departureTime} currentTime ${currentTime}`
+    );
+    return flight.departureTime >= currentTime;
+  });
+
+  // load the flights data if we can't find the next flight
+  useEffect(() => {
+    if (nextFlight < 0) {
+      loadAndSetFlights();
+    }
+  }, [setFlights, nextFlight]);
 
   // update the current time every 5 seconds
   useEffect(() => {
@@ -40,13 +51,6 @@ function App() {
     }, 30000);
     return () => clearInterval(interval);
   }, [setCurrentTime]);
-
-  const nextFlight = findIndex(flights, flight => {
-    console.log(
-      `flight departureTime ${flight.departureTime} currentTime ${currentTime}`
-    );
-    return flight.departureTime >= currentTime;
-  });
 
   return (
     <Fragment>
