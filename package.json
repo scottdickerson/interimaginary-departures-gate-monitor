@@ -16,7 +16,9 @@
     "react-scripts": "3.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "startClient": "react-scripts start",
+    "startServer": "nodemon src/server.js",
+    "start": "concurrently --kill-others-on-fail \"yarn startClient\" \"yarn startServer\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -52,6 +54,7 @@
     "@storybook/addon-links": "^5.2.8",
     "@storybook/addons": "^5.2.8",
     "@storybook/react": "^5.2.8",
+    "concurrently": "^5.0.1",
     "faker": "^4.1.0"
   }
 }
