@@ -8,7 +8,7 @@ import VerticalLine from "./VerticalLine";
 
 export const FlightDetailsHeaderPropTypes = {
   /** current flight status indicator */
-  status: PropTypes.oneOf(["On Time", "Delayed", "Canceled"]).isRequired,
+  status: PropTypes.oneOf(["Now Boarding", "Scheduled", "Canceled"]).isRequired,
   /** usually a picture that describes the flight carrier */
   carrier: PropTypes.node.isRequired,
   /** timestamp of the departure time */

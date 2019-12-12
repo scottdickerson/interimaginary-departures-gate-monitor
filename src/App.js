@@ -1,13 +1,15 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useMemo } from "react";
 import "./App.css";
 import FlightDetailsBoard from "./FlightDetailsBoard";
 import FlightDelayTimer from "./FlightDelayTimer";
+import FlightMusicPlayer from './FlightMusicPlayer';
 import moment from "moment";
 import findIndex from "lodash/findIndex";
 import omit from "lodash/omit";
+import isEmpty from 'lodash/isEmpty';
 import { fetchFlights } from "./FlightsAPI";
 
-const DEFAULT_FLIGHT_SEPARATION = 5;
+const DEFAULT_FLIGHT_SEPARATION = 1;
 
 function App() {
   const [currentTime, setCurrentTime] = useState(moment().valueOf());
@@ -34,7 +36,7 @@ function App() {
     console.log(
       `flight departureTime ${flight.departureTime} currentTime ${currentTime}`
     );
-    return flight.departureTime >= currentTime;
+    return flight.departureTime > currentTime;
   });
 
   // load the flights data if we can't find the next flight
@@ -52,24 +54,26 @@ function App() {
     return () => clearInterval(interval);
   }, [setCurrentTime]);
 
+  const displayedFlights = useMemo(()=> flights.slice(nextFlight, nextFlight + 2)
+  .map((flight, index) => ({
+    ...flight,
+    status:
+      flight.status === "Normal"
+        ? index === 0
+          ? "Now Boarding"
+          : "Scheduled"
+        : flight.status
+  })),[flights, nextFlight]);
+
   return (
     <Fragment>
+      <FlightMusicPlayer flightAnnouncement={!isEmpty(displayedFlights) && displayedFlights[0].destination}/>
       <FlightDelayTimer
         defaultDelay={DEFAULT_FLIGHT_SEPARATION}
         onChange={delay => loadAndSetFlights(delay)}
       />
       <FlightDetailsBoard
-        flights={flights
-          .slice(nextFlight, nextFlight + 2)
-          .map((flight, index) => ({
-            ...flight,
-            status:
-              flight.status === "Normal"
-                ? index === 0
-                  ? "Now Boarding"
-                  : "Scheduled"
-                : flight.status
-          }))}
+        flights={displayedFlights}
       />
     </Fragment>
   );

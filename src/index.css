@@ -1,9 +1,9 @@
 @font-face {
   font-family: HelveticaNeueBold;
-  src: url(./fonts/FontsFree-Net-HelveticaNeueBold.ttf);
+  src: url(./fonts/HelveticaNeueLTPro-Bd.otf) format("opentype");
 }
 
 @font-face {
   font-family: HelveticaNeueRegular;
-  src: url(./fonts/FontsFree-Net-HelveticaNeueRegular.ttf);
+  src: url(./fonts/HelveticaNeueLTPro-Roman.otf) format("opentype");
 }

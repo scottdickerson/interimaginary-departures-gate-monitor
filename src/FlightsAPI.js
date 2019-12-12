@@ -11,7 +11,7 @@ export const fetchFlights = (minutesToSeparate = 3) =>
       flights.map((flight, index) => ({
         ...normalizeFlight(flight),
         departureTime: moment()
-          .add(minutesToSeparate * index, "minutes")
+          .add(minutesToSeparate * (index + 1), "minutes")
           .valueOf() // fake the minutes}))
       }))
     );
