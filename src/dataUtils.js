@@ -14,6 +14,14 @@ import untitledairlines from "./imgs/untitledairlines.png";
 import utopiair from "./imgs/utopiair.png";
 import wistful from "./imgs/wistful.png";
 
+// audio files
+import abame from './sound/announcement-abame.mp3';
+import ankhmorpark from './sound/announcement-ankhmorpark.mp3';
+import asteroidb612 from './sound/announcement-asteroid612.mp3';
+import cimeria from './sound/announcement-cimeria.mp3';
+import cityofbrass from './sound/announcement-cityofbrass.mp3';
+import cyberspace from './sound/announcement-cyberspace.mp3';
+
 const imagepaths = {
   airlinguist,
   airudite,
@@ -31,6 +39,15 @@ const imagepaths = {
   utopiair,
   wistful
 };
+
+const audioPaths = {
+    abame,
+    ankhmorpark,
+    asteroidb612,
+    cimeria,
+    cityofbrass,
+    cyberspace
+}
 
 /**
  *
@@ -56,3 +73,12 @@ export const normalizeFlight = flight => {
     departureTime: flight.departureTime
   };
 };
+
+/** find the right audio file for a destination */
+export const findAudio = destination =>  {
+  // strip all special characters from the destination
+  var audioNames = Object.keys(audioPaths)
+  
+  // if I can't find the matching file return a random path
+  return audioPaths[destination.replace(/[\W_]+/g,"").toLowerCase()] || audioPaths[audioNames[ audioNames.length * Math.random() << 0]];
+}

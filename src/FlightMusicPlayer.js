@@ -1,34 +1,40 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import Sound from 'react-sound';
 import muzak from './sound/muzak.mp3'
-import abame from './sound/abame.mp3';
+import abame from './sound/announcement-abame.mp3';
+import { findAudio} from './dataUtils'
 
 const propTypes = {
-    /** the url of the sound file to play */
+    /** the  to play */
     flightAnnouncement: PropTypes.string.isRequired
 }
 
 const FlightMusicPlayer = ({flightAnnouncement})=> {
     const [muzakState, setMuzakState] = useState(Sound.status.PLAYING)
-    const [announcementState, setAnnouncementState] = useState(Sound.status.PLAYING);
+    const [announcementFile, setAnnouncementFile] = useState(abame);
+
     
     const handleAnnouncementEnd = ()=> {
         setMuzakState(Sound.status.PLAYING);
-        setAnnouncementState(Sound.status.PAUSED);
     }
 
     // if the sound file changes pause the muzak until it finishes
     useEffect(()=> {
         if (flightAnnouncement) {
             setMuzakState(Sound.status.PAUSED);
-            setAnnouncementState(Sound.status.PLAYING);
         }
     }, [flightAnnouncement])
 
+    useMemo(()=> {
+        if (flightAnnouncement) {
+            setAnnouncementFile(findAudio(flightAnnouncement))
+        }
+    },[flightAnnouncement]);
+
     return <Fragment>
         <Sound playStatus={muzakState} autoload loop url={muzak}/>
-        {flightAnnouncement?<Sound playStatus={announcementState} onFinishedPlaying={handleAnnouncementEnd} autoload url={abame}/>:null}
+        {flightAnnouncement?<Sound playStatus={muzakState === Sound.status.PLAYING ? Sound.status.PAUSED : Sound.status.PLAYING} onFinishedPlaying={handleAnnouncementEnd} autoload url={announcementFile}/>:null}
     </Fragment>
 }
 
