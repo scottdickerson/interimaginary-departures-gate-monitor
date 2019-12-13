@@ -7,6 +7,7 @@ import FlightDetailsHeader, {
 } from "./FlightDetailsHeader";
 
 import FlightProperty from "./FlightProperty";
+import classnames from 'classnames';
 
 export const FlightDetailsCardPropTypes = {
   ...FlightDetailsHeaderPropTypes,
@@ -15,22 +16,23 @@ export const FlightDetailsCardPropTypes = {
   /** additional details of the flight, the category names are not fixed! */
   details: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string, value: PropTypes.node })
-  ).isRequired
+  ).isRequired,
+  showUnderline: PropTypes.bool
 };
 
-const FlightDetailsCard = ({ destination, details, ...headerProps }) => {
+const FlightDetailsCard = ({ destination, details, showUnderline, ...headerProps }) => {
   const flightProperties = [
     { name: "Destination", value: destination, className: styles.destination },
     ...details
   ];
   return (
-    <div className={styles.card}>
+    <div className={classnames(styles.card,{[styles.cardUnderline]: showUnderline} )}>
       <FlightDetailsHeader {...headerProps} className={styles.header} />
-      {flightProperties.map(({ name, value, className }) => (
+      {flightProperties.map(({ name, value, className }, index) => (
         <FlightProperty
           key={`${destination}-${name}`}
           name={name}
-          className={styles.property}
+          className={classnames(styles.property, {[styles.propertyUnderline]: index !== flightProperties.length - 1})}
         >
           <div className={className || styles.propertyText}>{value}</div>
         </FlightProperty>

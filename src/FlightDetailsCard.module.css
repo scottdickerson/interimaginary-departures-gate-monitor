@@ -1,6 +1,9 @@
 .card {
   display: flex;
   flex-flow: column nowrap;
+}
+
+.cardUnderline {
   border-bottom: 4px solid #808080;
 }
 
@@ -16,6 +19,9 @@
 .property {
   padding: 2rem 0rem;
   min-height: 8rem;
+}
+
+.propertyUnderline {
   border-bottom: 4px solid #808080;
 }
 

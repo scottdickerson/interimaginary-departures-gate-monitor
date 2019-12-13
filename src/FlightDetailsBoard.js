@@ -17,10 +17,11 @@ const FlightDetailsBoard = ({ flights }) => {
         <img alt="Interimaginary Departures" src={logo} />
       </div>
       <div className={styles.cards}>
-        {flights.map(flight => (
+        {flights.map((flight,index) => (
           <FlightDetailsCard
             key={flight.destination}
             {...flight}
+            showUnderline={index!==flights.length-1}
             carrier={<img src={flight.carrier} alt="Carrier" />}
           />
         ))}
