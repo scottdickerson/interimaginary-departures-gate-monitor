@@ -1,6 +1,11 @@
 .card {
   display: flex;
   flex-flow: column nowrap;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+
+.cardUnderline {
   border-bottom: 4px solid #808080;
 }
 
@@ -10,12 +15,16 @@
 
 .destination {
   font-size: 150px;
-  line-height: 178px;
+  line-height: 170px;
+  height: 8.5rem;
 }
 
 .property {
   padding: 2rem 0rem;
   min-height: 8rem;
+}
+
+.propertyUnderline {
   border-bottom: 4px solid #808080;
 }
 
@@ -23,4 +32,5 @@
   min-height: 8rem;
   max-height: 8rem;
   overflow-y: hidden;
+  letter-spacing: 1.5px;
 }

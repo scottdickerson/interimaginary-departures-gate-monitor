@@ -23,6 +23,10 @@
   background-color: black;
 }
 
+.propertyUnderline {
+  border-bottom: 4px solid #808080;
+}
+
 .cards > div + div {
   padding-top: 6rem;
 }
