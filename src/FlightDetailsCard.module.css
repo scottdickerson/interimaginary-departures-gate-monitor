@@ -1,6 +1,8 @@
 .card {
   display: flex;
   flex-flow: column nowrap;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
 }
 
 .cardUnderline {
@@ -13,7 +15,8 @@
 
 .destination {
   font-size: 150px;
-  line-height: 178px;
+  line-height: 170px;
+  height: 8.5rem;
 }
 
 .property {

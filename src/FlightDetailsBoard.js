@@ -21,9 +21,9 @@ const FlightDetailsBoard = ({ flights }) => {
           <FlightDetailsCard
             key={flight.destination}
             {...flight}
-            showUnderline={index!==flights.length-1}
+            showUnderline={false}
             carrier={<img src={flight.carrier} alt="Carrier" />}
-          />
+        />
         ))}
       </div>
     </div>
