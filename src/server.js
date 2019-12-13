@@ -3,6 +3,7 @@ const path = require("path");
 const app = express();
 const cors = require("cors");
 const csvtojson = require("csvtojson");
+const lodash = require("lodash");
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, "build")));
@@ -16,9 +17,9 @@ function loadFlights() {
       )
     )
     .then(flights => {
-      return flights.map((flight, index) => ({
+      return lodash.shuffle(flights.map((flight, index) => ({
         ...flight
-      }));
+      })));
     })
     .catch(error => console.log(error));
 }
