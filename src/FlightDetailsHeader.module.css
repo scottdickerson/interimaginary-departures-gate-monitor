@@ -40,7 +40,6 @@
 
 .header img {
   width: 540px;
-  margin-left: -16px;
   margin-top: -16px;
 }
 
@@ -54,8 +53,8 @@
 }
 
 .departureTime p {
-  font-size: 80px;
-  margin-top: -16px !important;
-  line-height: 100px;
+  font-size: 82px;
+  line-height: 122px;
+  text-align: end;
   text-transform: uppercase;
 }

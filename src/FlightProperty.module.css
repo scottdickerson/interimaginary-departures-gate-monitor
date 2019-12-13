@@ -1,7 +1,8 @@
 .property {
   min-height: 3rem;
   color: white;
-  font-size: 60px;
+  font-size: 63px;
+  line-height: 67px;
 }
 
 .name {
@@ -10,6 +11,7 @@
   font-size: 45px;
   font-family: "HelveticaNeueRegular";
   line-height: 45px;
+  letter-spacing: 2px;
 }
 
 .property p {
