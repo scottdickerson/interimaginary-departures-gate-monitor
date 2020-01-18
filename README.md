@@ -1,9 +1,10 @@
 ## Setup new machine
+
 ```
 brew install npm
 brew install yarn
-yarn -g add react-scripts
-yarn -g add nodemon
+yarn global add react-scripts
+yarn global add nodemon
 ```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
