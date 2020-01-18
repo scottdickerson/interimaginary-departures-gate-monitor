@@ -50,6 +50,10 @@
   min-width: 648px;
   font-size: 98px;
   text-align: center;
+  /* Added font-family and padding here b/c
+  I don't understand css - Tray */
+  font-family: HelveticaNeueBold;
+  padding-top: 60px;
 }
 
 .departureTime p {
