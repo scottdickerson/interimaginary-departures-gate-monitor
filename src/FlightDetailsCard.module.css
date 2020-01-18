@@ -4,19 +4,24 @@
   padding-top: 5rem;
   padding-bottom: 2rem;
 }
+/* darkened line and header color from #808080
+to #2b2b2b */
 
 .cardUnderline {
-  border-bottom: 4px solid #808080;
+  border-bottom: 4px solid #2b2b2b;
 }
 
 .header {
-  border-bottom: 4px solid #808080;
+  border-bottom: 4px solid #2b2b2b;
 }
 
 .destination {
   font-size: 150px;
   line-height: 170px;
   height: 8.5rem;
+  /* added padding-left to indent destination
+  and property text */
+  padding-left: 1rem;
 }
 
 .property {
@@ -25,12 +30,13 @@
 }
 
 .propertyUnderline {
-  border-bottom: 4px solid #808080;
+  border-bottom: 4px solid #2b2b2b;
 }
 
 .propertyText {
   min-height: 8rem;
   max-height: 8rem;
+  padding-left: 1rem;
   overflow-y: hidden;
   letter-spacing: 1.5px;
 }
