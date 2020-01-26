@@ -17,9 +17,7 @@ function loadFlights() {
       )
     )
     .then(flights => {
-      return lodash.shuffle(flights.map((flight, index) => ({
-        ...flight
-      })));
+      return lodash.sortBy(flights, "name");
     })
     .catch(error => console.log(error));
 }
