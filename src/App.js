@@ -2,11 +2,12 @@ import React, { useEffect, useState, Fragment, useMemo } from "react";
 import "./App.css";
 import FlightDetailsBoard from "./FlightDetailsBoard";
 import FlightDelayTimer from "./FlightDelayTimer";
-import FlightMusicPlayer from './FlightMusicPlayer';
+import FlightMusicPlayer from "./FlightMusicPlayer";
 import moment from "moment";
 import findIndex from "lodash/findIndex";
 import omit from "lodash/omit";
-import isEmpty from 'lodash/isEmpty';
+import sortBy from "lodash/sortBy";
+import isEmpty from "lodash/isEmpty";
 import { fetchFlights } from "./FlightsAPI";
 
 const DEFAULT_FLIGHT_SEPARATION = 1;
@@ -16,7 +17,7 @@ function App() {
   const [flights, setFlights] = useState([]);
 
   const loadAndSetFlights = (separation = DEFAULT_FLIGHT_SEPARATION) => {
-    fetchFlights(separation).then(
+    fetchFlights().then(
       (
         flights // start the flights every 3 minutes
       ) => {
@@ -27,7 +28,7 @@ function App() {
             2
           )}`
         );
-        setFlights(flights);
+        setFlights(sortBy(flights, "departureTime"));
       }
     );
   };
@@ -54,27 +55,32 @@ function App() {
     return () => clearInterval(interval);
   }, [setCurrentTime]);
 
-  const displayedFlights = useMemo(()=> flights.slice(nextFlight, nextFlight + 2)
-  .map((flight, index) => ({
-    ...flight,
-    status:
-      flight.status === "Normal"
-        ? index === 0
-          ? "Now Boarding"
-          : "Scheduled"
-        : flight.status
-  })),[flights, nextFlight]);
+  const displayedFlights = useMemo(
+    () =>
+      flights.slice(nextFlight, nextFlight + 2).map((flight, index) => ({
+        ...flight,
+        status:
+          flight.status === "Normal"
+            ? index === 0
+              ? "Now Boarding"
+              : "Scheduled"
+            : flight.status
+      })),
+    [flights, nextFlight]
+  );
 
   return (
     <Fragment>
-      <FlightMusicPlayer flightAnnouncement={!isEmpty(displayedFlights) && displayedFlights[0].destination}/>
+      <FlightMusicPlayer
+        flightAnnouncement={
+          !isEmpty(displayedFlights) && displayedFlights[0].destination
+        }
+      />
       <FlightDelayTimer
         defaultDelay={DEFAULT_FLIGHT_SEPARATION}
         onChange={delay => loadAndSetFlights(delay)}
       />
-      <FlightDetailsBoard
-        flights={displayedFlights}
-      />
+      <FlightDetailsBoard flights={displayedFlights} />
     </Fragment>
   );
 }

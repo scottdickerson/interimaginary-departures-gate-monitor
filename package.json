@@ -17,9 +17,7 @@
     "react-sound": "^1.2.0"
   },
   "scripts": {
-    "startClient": "react-scripts start",
-    "startServer": "nodemon src/server.js",
-    "start": "concurrently --kill-others-on-fail \"yarn startClient\" \"yarn startServer\"",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
