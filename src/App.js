@@ -15,6 +15,11 @@ const DEFAULT_FLIGHT_SEPARATION = 1;
 function App() {
   const [currentTime, setCurrentTime] = useState(moment().valueOf());
   const [flights, setFlights] = useState([]);
+  const [currentDay, setCurrentDay] = useState(moment().dayOfYear());
+  // reload the flights data if we switch days
+  useEffect(() => {
+    loadAndSetFlights();
+  }, [currentDay]);
 
   const loadAndSetFlights = (separation = DEFAULT_FLIGHT_SEPARATION) => {
     fetchFlights().then(
@@ -34,24 +39,15 @@ function App() {
   };
 
   const nextFlight = findIndex(flights, flight => {
-    console.log(
-      `flight departureTime ${flight.departureTime} currentTime ${currentTime}`
-    );
     return flight.departureTime > currentTime;
   });
-
-  // load the flights data if we can't find the next flight
-  useEffect(() => {
-    if (nextFlight < 0) {
-      loadAndSetFlights();
-    }
-  }, [setFlights, nextFlight]);
 
   // update the current time every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(moment().valueOf());
-    }, 1000);
+      setCurrentDay(moment().dayOfYear());
+    }, 10000);
     return () => clearInterval(interval);
   }, [setCurrentTime]);
 
