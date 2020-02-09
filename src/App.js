@@ -10,12 +10,13 @@ import sortBy from "lodash/sortBy";
 import isEmpty from "lodash/isEmpty";
 import { fetchFlights } from "./FlightsAPI";
 
-const DEFAULT_FLIGHT_SEPARATION = 1;
+const DEFAULT_FLIGHT_SEPARATION = 0;
 
 function App() {
   const [currentTime, setCurrentTime] = useState(moment().valueOf());
   const [flights, setFlights] = useState([]);
   const [currentDay, setCurrentDay] = useState(moment().dayOfYear());
+  const [flightDelay, setFlightDelay] = useState(DEFAULT_FLIGHT_SEPARATION);
   // reload the flights data if we switch days
   useEffect(() => {
     loadAndSetFlights();
@@ -44,12 +45,21 @@ function App() {
 
   // update the current time every 5 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(moment().valueOf());
-      setCurrentDay(moment().dayOfYear());
-    }, 10000);
+    const interval = setInterval(
+      () => {
+        setCurrentTime(currentTime =>
+          flightDelay
+            ? moment(currentTime)
+                .add(3.5, "minutes")
+                .valueOf()
+            : moment().valueOf()
+        );
+        setCurrentDay(moment().dayOfYear());
+      },
+      flightDelay !== 0 ? flightDelay * 1000 : 10000
+    );
     return () => clearInterval(interval);
-  }, [setCurrentTime]);
+  }, [flightDelay, setCurrentTime]);
 
   const displayedFlights = useMemo(
     () =>
@@ -73,8 +83,8 @@ function App() {
         }
       />
       <FlightDelayTimer
-        defaultDelay={DEFAULT_FLIGHT_SEPARATION}
-        onChange={delay => loadAndSetFlights(delay)}
+        defaultDelay={flightDelay}
+        onChange={delay => setFlightDelay(delay)}
       />
       <FlightDetailsBoard flights={displayedFlights} />
     </Fragment>

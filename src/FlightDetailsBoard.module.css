@@ -19,7 +19,7 @@
 }
 
 .cards {
-  padding: 4rem 162px;
+  padding: 4rem 199px;
   background-color: black;
 }
 
@@ -28,5 +28,5 @@
 }
 
 .cards > div + div {
-  padding-top: 6rem;
+  padding-top: 0rem;
 }

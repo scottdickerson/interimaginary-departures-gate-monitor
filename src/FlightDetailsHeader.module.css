@@ -14,7 +14,6 @@
 .header > div {
   padding-left: 2rem;
   padding-right: 2rem;
-  padding-bottom: 1rem;
 }
 .header > div:first-child {
   padding-left: 0rem;
@@ -23,7 +22,7 @@
 }
 
 .header > div:nth-child(2) {
-  padding-left: 138px;
+  padding-left: 248px;
   padding-right: 0;
 }
 
@@ -39,7 +38,7 @@
 }
 
 .header img {
-  width: 540px;
+  width: 500px;
   margin-top: -16px;
 }
 
@@ -47,13 +46,14 @@
   background-color: #8f1d3b;
   text-transform: capitalize;
   padding: 2rem;
-  min-width: 648px;
-  font-size: 98px;
+  min-width: 504px;
+  font-size: 78px;
   text-align: center;
   /* Added font-family and padding here b/c
   I don't understand css - Tray */
   font-family: HelveticaNeueBold;
-  padding-top: 60px;
+  padding-top: 45px;
+  letter-spacing: 1.12px;
 }
 
 .departureTime p {
