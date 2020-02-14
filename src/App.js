@@ -43,6 +43,13 @@ function App() {
     return flight.departureTime > currentTime;
   });
 
+  // If the flight delay changes restart the time at 5 am
+  useEffect(()=> {
+    if (flightDelay > 0) {
+      setCurrentTime(moment().hour(4).minute(55).second(0).millisecond(0).valueOf())
+    }
+  }, [flightDelay])
+
   // update the current time every 5 seconds
   useEffect(() => {
     const interval = setInterval(
@@ -77,11 +84,12 @@ function App() {
 
   return (
     <Fragment>
-      <FlightMusicPlayer
+     {/** <FlightMusicPlayer
         flightAnnouncement={
           !isEmpty(displayedFlights) && displayedFlights[0].destination
         }
-      />
+        flightStatus={displayedFlights[0].status}
+      />*/}
       <FlightDelayTimer
         defaultDelay={flightDelay}
         onChange={delay => setFlightDelay(delay)}
