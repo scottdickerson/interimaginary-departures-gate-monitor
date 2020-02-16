@@ -6,11 +6,12 @@ import abame from './sound/announcement-abame.mp3';
 import { findAudio} from './dataUtils'
 
 const propTypes = {
-    /** the  to play */
-    flightAnnouncement: PropTypes.string.isRequired
+    /** the audio file to play */
+    flightAnnouncement: PropTypes.string.isRequired,
+    flightStatus: PropTypes.oneOf(["Normal", "Canceled"]).isRequired,
 }
 
-const FlightMusicPlayer = ({flightAnnouncement})=> {
+const FlightMusicPlayer = ({flightAnnouncement, flightStatus})=> {
     const [muzakState, setMuzakState] = useState(Sound.status.PLAYING)
     const [announcementFile, setAnnouncementFile] = useState(abame);
 
@@ -21,16 +22,16 @@ const FlightMusicPlayer = ({flightAnnouncement})=> {
 
     // if the sound file changes pause the muzak until it finishes
     useEffect(()=> {
-        if (flightAnnouncement) {
+        if (flightAnnouncement && flightStatus !== 'Canceled') {
             setMuzakState(Sound.status.PAUSED);
         }
-    }, [flightAnnouncement])
+    }, [flightAnnouncement, flightStatus])
 
     useMemo(()=> {
-        if (flightAnnouncement) {
+        if (flightAnnouncement && flightStatus !== 'Canceled') {
             setAnnouncementFile(findAudio(flightAnnouncement))
         }
-    },[flightAnnouncement]);
+    },[flightAnnouncement, flightStatus]);
 
     return <Fragment>
         <Sound playStatus={muzakState} autoload loop url={muzak}/>
