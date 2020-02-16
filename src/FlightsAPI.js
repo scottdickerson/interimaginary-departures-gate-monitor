@@ -1,20 +1,17 @@
 import { normalizeFlight } from "./dataUtils";
 import moment from "moment";
+import qs from 'qs';
 
-export const fetchFlights = minutesToSeparate =>
-  fetch("http://192.168.7.120:8080/flights", {
+export const fetchFlights = day =>
+  fetch(`http://${process.env.REACT_APP_SERVER_HOST}:8080/flights?${qs.stringify({day})}`, {
     method: "get",
-    url: `http://192.168.7.120:8080`
+    url: `http://${process.env.REACT_APP_SERVER_HOST}:8080`
   }).then(response => {
     console.log("fetch response");
     return response.json().then(flights =>
       flights.map((flight, index) => ({
         ...normalizeFlight(flight),
-        departureTime: minutesToSeparate
-          ? moment()
-              .add(minutesToSeparate * (index + 1), "minutes")
-              .valueOf() // fake the minutes}))
-          : moment(flight.departureTime).valueOf()
+        departureTime: moment(flight.departureTime).valueOf()
       }))
     );
   });

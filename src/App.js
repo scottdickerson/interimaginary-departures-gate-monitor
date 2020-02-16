@@ -22,10 +22,10 @@ function App() {
     loadAndSetFlights();
   }, [currentDay]);
 
-  const loadAndSetFlights = (separation = DEFAULT_FLIGHT_SEPARATION) => {
-    fetchFlights().then(
+  const loadAndSetFlights = (day) => {
+    fetchFlights(day).then(
       (
-        flights // start the flights every 3 minutes
+        flights
       ) => {
         console.log(
           `flights response ${JSON.stringify(
@@ -46,6 +46,7 @@ function App() {
   // If the flight delay changes restart the time at 5 am
   useEffect(()=> {
     if (flightDelay > 0) {
+      loadAndSetFlights(7); // special request for alphabetical flights
       setCurrentTime(moment().hour(4).minute(55).second(0).millisecond(0).valueOf())
     }
   }, [flightDelay])
