@@ -2,12 +2,10 @@ import React, { useEffect, useState, Fragment, useMemo } from "react";
 import "./App.css";
 import FlightDetailsBoard from "./FlightDetailsBoard";
 import FlightDelayTimer from "./FlightDelayTimer";
-import FlightMusicPlayer from "./FlightMusicPlayer";
 import moment from "moment";
 import findIndex from "lodash/findIndex";
 import omit from "lodash/omit";
 import sortBy from "lodash/sortBy";
-import isEmpty from "lodash/isEmpty";
 import { fetchFlights } from "./FlightsAPI";
 
 const DEFAULT_FLIGHT_SEPARATION = 0;

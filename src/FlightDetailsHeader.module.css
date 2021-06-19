@@ -62,3 +62,28 @@
   text-align: end;
   text-transform: uppercase;
 }
+
+@media only screen and (max-width: 1680px) {
+  .status {
+      min-width: 35%;
+      font-size: 3vw;
+      padding:2vh;
+  }
+  .header > div:nth-child(2) {
+    padding-left: 3vw;
+    padding-right: 0;
+  }
+  .header {
+    min-height: 10%;
+    max-height:10%
+}
+.header img {
+  width: 20vw;
+  margin-top: -1vh;
+}
+.departureTime p {
+  font-size: 4vh;
+  line-height: 6vh;
+ 
+}
+}

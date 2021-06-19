@@ -7,6 +7,10 @@ yarn global add react-scripts
 yarn global add nodemon
 ```
 
+Testing the app locally outside of docker from the project directory run
+`yarn install`
+`REACT_APP_SERVER_API_URL=<wherever your api is listening, by default should be http://localhost:8080> yarn start`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -20,6 +24,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+### Application API
+
+The application connects to an NodeJS API to load flight information using an environment variable called REACT_APP_SERVER_API_URL
+
+An example would be <http://localhost:8080>
 
 ### `yarn test`
 

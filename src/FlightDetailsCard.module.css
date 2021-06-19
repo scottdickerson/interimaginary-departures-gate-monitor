@@ -37,3 +37,29 @@ to #2b2b2b */
   letter-spacing: 1.5px;
   padding-top: 20px;
 }
+
+@media only screen and (max-width: 1680px) {
+  .destination {
+    font-size: 5vh;
+  line-height: 6vh;
+  height: 3vh;
+  }
+  .property {
+    padding: 2vh 0rem;
+    min-height: 8vh;
+  }
+  .propertyText {
+    min-height: 6vh;
+    max-height: 6vh;
+    overflow-y: ellipsis;
+    letter-spacing: 1.5px;
+    padding-top: 1vh;
+  }
+  .card {
+    padding-top: 3vh;
+    padding-bottom: 1vh;
+  }
+  .card + .card {
+    padding-top:5vh;
+  }
+}

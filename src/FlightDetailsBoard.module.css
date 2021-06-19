@@ -18,9 +18,30 @@
   height: 218px;
 }
 
+@media only screen and (max-width: 1680px) {
+  .title img {
+      max-width: 90%;
+      max-height:10vh;
+      height:unset;
+      margin-bottom: 1vw;
+      margin-top:1vw;
+  }
+  .title {
+    min-height: unset
+}
+}
+
+
+
 .cards {
   padding: 4rem 199px;
   background-color: black;
+}
+
+@media only screen and (max-width: 1680px) {
+  .cards {
+      padding: 2rem;
+  }
 }
 
 .propertyUnderline {
