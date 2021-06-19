@@ -7,6 +7,17 @@ yarn global add react-scripts
 yarn global add nodemon
 ```
 
+## Deploying to heroku (deploys the static app not the container)
+
+`heroku login`
+`git remote add heroku https://git.heroku.com/shrouded-peak-45691.git`
+`heroku config:set REACT_APP_SERVER_API_URL=https://still-fjord-81783.herokuapp.com`
+`git push heroku master`
+`heroku open`
+
+To view the app directly:
+<https://shrouded-peak-45691.herokuapp.com/ >
+
 Testing the app locally outside of docker from the project directory run
 `yarn install`
 `REACT_APP_SERVER_API_URL=<wherever your api is listening, by default should be http://localhost:8080> yarn start`
