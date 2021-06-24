@@ -13,7 +13,7 @@ const DEFAULT_FLIGHT_SEPARATION = 0;
 function App() {
   const [currentTime, setCurrentTime] = useState(moment().valueOf());
   const [flights, setFlights] = useState([]);
-  const [currentDay, setCurrentDay] = useState(moment().dayOfYear());
+  const [currentDay, setCurrentDay] = useState(moment().day());
   const [flightDelay, setFlightDelay] = useState(DEFAULT_FLIGHT_SEPARATION);
   // reload the flights data if we switch days
   useEffect(() => {
@@ -60,7 +60,7 @@ function App() {
                 .valueOf()
             : moment().valueOf()
         );
-        setCurrentDay(moment().dayOfYear());
+        setCurrentDay(moment().day());
       },
       flightDelay !== 0 ? flightDelay * 1000 : 10000
     );
