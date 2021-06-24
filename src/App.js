@@ -17,7 +17,7 @@ function App() {
   const [flightDelay, setFlightDelay] = useState(DEFAULT_FLIGHT_SEPARATION);
   // reload the flights data if we switch days
   useEffect(() => {
-    loadAndSetFlights();
+    loadAndSetFlights(currentDay);
   }, [currentDay]);
 
   const loadAndSetFlights = (day) => {
