@@ -7,6 +7,12 @@ yarn global add react-scripts
 yarn global add nodemon
 ```
 
+## Audio Autoplay 
+ While this seems enabled on localhost, here are some details about why it doesn't work when hosted on heroku.
+https://developers.google.com/web/updates/2017/09/autoplay-policy-changes
+You can disable entirely the autoplay policy by using an internal switch with chrome.exe --autoplay-policy=no-user-gesture-required. This allows you to test your website as if user were strongly engaged with your site and playback autoplay would be always allowed.
+Because of this limitation when we're not on localhost, we will put a start audio button on the page.
+
 ## Deploying to heroku (deploys the static app not the container)
 
 `heroku login`

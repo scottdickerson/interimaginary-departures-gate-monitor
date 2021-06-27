@@ -1,0 +1,20 @@
+.startAudioPopup,
+.startAudioPopupText {
+    position: absolute;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+}
+
+.startAudioPopup {
+    background-color: gray;
+    opacity: 0.7;
+}
+.startAudioPopupText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 40px;
+}
