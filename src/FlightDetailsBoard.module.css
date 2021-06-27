@@ -1,53 +1,63 @@
 .board {
-  display: flex;
-  flex-flow: column nowrap;
-  height: 100vh;
-  background-color: black;
-  position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100vh;
+    background-color: black;
+    position: relative;
+}
+
+.fetching,
+.error {
+    display: flex;
+    font-size: 50px;
+    width: 100vw;
+    height: 50vh;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
 .title {
-  background-color: #8f1d3b;
-  min-height: 426px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+    background-color: #8f1d3b;
+    min-height: 426px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 .title img {
-  margin-bottom: 4rem;
-  height: 218px;
+    margin-bottom: 4rem;
+    height: 218px;
 }
 
 @media only screen and (max-width: 1680px) {
-  .title img {
-      max-width: 90%;
-      max-height:10vh;
-      height:unset;
-      margin-bottom: 1vw;
-      margin-top:1vw;
-  }
-  .title {
-    min-height: unset
+    .title img {
+        max-width: 90%;
+        max-height: 10vh;
+        height: unset;
+        margin-bottom: 1vw;
+        margin-top: 1vw;
+    }
+    .title {
+        min-height: unset;
+    }
 }
-}
-
-
 
 .cards {
-  padding: 4rem 199px;
-  background-color: black;
+    padding: 4rem 199px;
+    background-color: black;
 }
 
 @media only screen and (max-width: 1680px) {
-  .cards {
-      padding: 2rem;
-  }
+    .cards {
+        padding: 2rem;
+    }
 }
 
 .propertyUnderline {
-  border-bottom: 4px solid #808080;
+    border-bottom: 4px solid #808080;
 }
 
 .cards > div + div {
-  padding-top: 0rem;
+    padding-top: 0rem;
 }
