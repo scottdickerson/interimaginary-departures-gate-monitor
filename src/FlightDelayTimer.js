@@ -8,6 +8,11 @@ const propTypes = {
   defaultDelay: PropTypes.number
 };
 
+/**
+ * This is the input that allows you to enable debug/test mode where all of the destinations are sorted alphabetically and fly by
+ * @param {*} param0 
+ * @returns 
+ */
 const FlightDelayTimer = ({ onChange, defaultDelay }) => {
   // how many minutes should I delay
   const [delayTimer, setDelayTimer] = useState(defaultDelay);

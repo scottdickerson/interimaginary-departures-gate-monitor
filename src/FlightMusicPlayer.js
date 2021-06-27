@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Sound from 'react-sound';
 import muzak from './sound/muzak.mp3'
 import abame from './sound/announcement-abame.mp3';
-import { findAudio} from './dataUtils'
+import { findAudio} from './api/dataUtils'
 
 const propTypes = {
     /** the audio file to play */
