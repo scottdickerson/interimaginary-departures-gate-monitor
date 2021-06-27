@@ -3,13 +3,14 @@ import './App.css'
 import FlightDetailsBoard from './FlightDetailsBoard'
 // import FlightDelayTimer from "./FlightDelayTimer";  // TEST_MODE
 import FlightMusicPlayer from './FlightMusicPlayer'
-import StartAudioPopup from './StartAudioPopup'
+
 import moment from 'moment'
 import findIndex from 'lodash/findIndex'
-import omit from 'lodash/omit'
+import isEqual from 'lodash/isEqual'
 import sortBy from 'lodash/sortBy'
 import isEmpty from 'lodash/isEmpty'
-import { fetchFlights } from './api/FlightsAPI'
+import { fetchAllFlights } from './api/FlightsActions'
+import { useSelector, useDispatch } from 'react-redux'
 
 // const DEFAULT_FLIGHT_SEPARATION = 0;
 
@@ -19,39 +20,18 @@ import { fetchFlights } from './api/FlightsAPI'
  */
 function App() {
     const [currentTime, setCurrentTime] = useState(moment().valueOf())
-    // We're going to be allowed to let audio play on localhost because we're going to startup Chrome with a special flag
-    const [audioCanPlay, setAudioCanPlay] = useState(false)
-    const [flights, setFlights] = useState([])
     const [currentDay, setCurrentDay] = useState(moment().day())
+    const dispatch = useDispatch()
     // const [flightDelay, setFlightDelay] = useState(DEFAULT_FLIGHT_SEPARATION); // TEST_MODE
     // reload the flights data if we switch days
     useEffect(() => {
-        loadAndSetFlights(currentDay)
-    }, [currentDay])
+        dispatch(fetchAllFlights(currentDay))
+    }, [currentDay, dispatch])
 
-    // If we are not allowed to play audio, listen for the click to turn it on
-    useEffect(() => {
-        let clickListener
-        if (!audioCanPlay) {
-            clickListener = window.addEventListener('click', () =>
-                setAudioCanPlay(true)
-            )
-        }
-        return window.removeEventListener('click', clickListener)
-    }, [audioCanPlay])
-
-    const loadAndSetFlights = (day) => {
-        fetchFlights(day).then((flights) => {
-            console.log(
-                `flights response ${JSON.stringify(
-                    flights.map((flight) => omit(flight, ['carrier'])),
-                    null,
-                    2
-                )}`
-            )
-            setFlights(sortBy(flights, 'departureTime'))
-        })
-    }
+    const flights = useSelector(
+        (state) => sortBy(state.flights.data || [], 'departureTime'),
+        isEqual
+    )
 
     const nextFlight = findIndex(flights, (flight) => {
         return flight.departureTime > currentTime
@@ -104,18 +84,16 @@ function App() {
 
     return (
         <Fragment>
-            {audioCanPlay ? (
-                <FlightMusicPlayer
-                    flightAnnouncement={
-                        !isEmpty(displayedFlights) &&
-                        displayedFlights[0].destination
-                    }
-                    flightStatus={
-                        !isEmpty(displayedFlights) && displayedFlights[0].status
-                    }
-                />
-            ) : null}
-            {!audioCanPlay ? <StartAudioPopup /> : null}
+            <FlightMusicPlayer
+                flightAnnouncement={
+                    !isEmpty(displayedFlights) &&
+                    displayedFlights[0].destination
+                }
+                flightStatus={
+                    !isEmpty(displayedFlights) && displayedFlights[0].status
+                }
+            />
+
             {/* <FlightDelayTimer
         defaultDelay={flightDelay}
         onChange={delay => setFlightDelay(delay)}
