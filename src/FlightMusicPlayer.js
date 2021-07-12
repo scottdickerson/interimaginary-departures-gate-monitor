@@ -2,9 +2,9 @@ import React, { Fragment, useEffect, useState, useMemo, useRef } from 'react'
 import PropTypes from 'prop-types'
 import Sound from 'react-sound'
 import muzak from './sound/muzak.mp3'
-import abame from './sound/announcement-abame.mp3'
-import { findAudio } from './api/dataUtils'
+import { findAudio } from './api/audioUtils'
 import silence from './sound/silence.mp3'
+import ding from './sound/ding.wav'
 import StartAudioPopup from './StartAudioPopup'
 
 const propTypes = {
@@ -22,6 +22,11 @@ const AUDIO_CAN_PLAY = {
 const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
     // In chrome until the user interacts (unless we start chrome with a certain flag chrome.exe --autoplay-policy=no-user-gesture-required)
     const [audioCanPlay, setAudioCanPlay] = useState()
+    // One state keeps track of whether the muzak is playing
+    const [muzakState, setMuzakState] = useState(Sound.status.PLAYING)
+    // One state keeps track of whether the ding is playing
+    const [dingState, setDingState] = useState(Sound.status.PAUSED)
+    const [announcementFile, setAnnouncementFile] = useState()
     const silenceMP3Ref = useRef()
 
     // If we are not allowed to play audio, listen for the click to turn it on
@@ -54,17 +59,16 @@ const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
     // This is really DUMB, but I have to do a setState so the ref on the audio actually gets stored so I can try to play, it is not set initially
     useEffect(() => setAudioCanPlay(AUDIO_CAN_PLAY.CHECKING), [])
 
-    const [muzakState, setMuzakState] = useState(Sound.status.PLAYING)
-    const [announcementFile, setAnnouncementFile] = useState(abame)
-
+    // once the announcement finishes, turn back on the muzak
     const handleAnnouncementEnd = () => {
         setMuzakState(Sound.status.PLAYING)
     }
 
-    // if the sound file changes pause the muzak until it finishes
+    // if the sound file changes pause the muzak until it finishes, then play the ding
     useEffect(() => {
         if (flightAnnouncement && flightStatus !== 'Canceled') {
             setMuzakState(Sound.status.PAUSED)
+            setDingState(Sound.status.PLAYING)
         }
     }, [flightAnnouncement, flightStatus])
 
@@ -77,10 +81,19 @@ const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
     return audioCanPlay === AUDIO_CAN_PLAY.YES ? (
         <Fragment>
             <Sound playStatus={muzakState} autoload loop url={muzak} />
+
+            <Sound
+                playStatus={dingState}
+                onFinishedPlaying={() => setDingState(Sound.status.PAUSED)}
+                autoload
+                url={ding}
+            />
+
             {flightAnnouncement ? (
                 <Sound
                     playStatus={
-                        muzakState === Sound.status.PLAYING
+                        muzakState === Sound.status.PLAYING || // wait for both the muzak and ding to finish before talking
+                        dingState === Sound.status.PLAYING
                             ? Sound.status.PAUSED
                             : Sound.status.PLAYING
                     }
