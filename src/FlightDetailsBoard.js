@@ -37,6 +37,7 @@ const FlightDetailsBoard = ({ flights }) => {
                         <FlightDetailsCard
                             key={flight.destination}
                             {...flight}
+                            status={index === 0 ? 'Boarding' : flight.status}
                             showUnderline={false}
                             carrier={<img src={flight.carrier} alt="Carrier" />}
                         />
