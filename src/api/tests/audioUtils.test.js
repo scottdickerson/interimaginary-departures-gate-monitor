@@ -17,12 +17,7 @@ describe('audioUtils', () => {
                 const destination = line.split(',')[0]
                 // console.log('Checking destination', destination)
                 if (
-                    ![
-                        'Neverwhere',
-                        'The Night Kitchen',
-                        'West Egg',
-                        'Pegāna',
-                    ].includes(
+                    !['Neverwhere', 'The Night Kitchen', 'West Egg'].includes(
                         // TODO: we're missing sound files for these
                         destination
                     )
