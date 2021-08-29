@@ -40,14 +40,17 @@ function App() {
 
     // update the current time every 10 seconds
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentTime((currentTime) =>
-                TEST_MODE // if we're in test mode don't use the real time
-                    ? moment(currentTime).add(3.5, 'minutes').valueOf()
-                    : moment().valueOf()
-            )
-            setCurrentDay(moment().day())
-        }, 10000)
+        const interval = setInterval(
+            () => {
+                setCurrentTime((currentTime) =>
+                    TEST_MODE // if we're in test mode don't use the real time
+                        ? moment(currentTime).add(3.5, 'minutes').valueOf()
+                        : moment().valueOf()
+                )
+                setCurrentDay(moment().day())
+            },
+            TEST_MODE ? 30000 : 10000
+        )
         return () => clearInterval(interval)
     }, [TEST_MODE, setCurrentTime])
 
