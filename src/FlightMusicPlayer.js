@@ -13,6 +13,12 @@ const propTypes = {
     flightStatus: PropTypes.oneOf(['Normal', 'Canceled']).isRequired,
 }
 
+const AUDIO_PLAYING_STATES = {
+    FLIGHT_ANNOUNCEMENT_PLAYING: 'FLIGHT_ANNOUNCEMENT_PLAYING',
+    DING_PLAYING: 'DING_PLAYING',
+    NOTHING_PLAYING: 'NOTHING_PLAYING'
+}
+
 const AUDIO_CAN_PLAY = {
     CHECKING: 'CHECKING',
     YES: 'YES',
@@ -22,11 +28,8 @@ const AUDIO_CAN_PLAY = {
 const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
     // In chrome until the user interacts (unless we start chrome with a certain flag chrome.exe --autoplay-policy=no-user-gesture-required)
     const [audioCanPlay, setAudioCanPlay] = useState()
-    // One state keeps track of whether the muzak is playing
-    const [muzakState, setMuzakState] = useState(Sound.status.PLAYING)
-    // One state keeps track of whether the ding is playing
-    const [dingState, setDingState] = useState(Sound.status.PAUSED)
-    const [announcementFile, setAnnouncementFile] = useState()
+  
+    const [audioState, setAudioState] = useState(AUDIO_PLAYING_STATES.NOTHING_PLAYING)
     const silenceMP3Ref = useRef()
 
     // If we are not allowed to play audio, listen for the click to turn it on
@@ -59,32 +62,32 @@ const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
     // This is really DUMB, but I have to do a setState so the ref on the audio actually gets stored so I can try to play, it is not set initially
     useEffect(() => setAudioCanPlay(AUDIO_CAN_PLAY.CHECKING), [])
 
-    // once the announcement finishes, turn back on the muzak
+    // once the announcement finishes, SILENCE!
     const handleAnnouncementEnd = () => {
-        setMuzakState(Sound.status.PLAYING)
+      setAudioState(AUDIO_PLAYING_STATES.NOTHING_PLAYING)
     }
 
     // if the sound file changes pause the muzak until it finishes, then play the ding
     useEffect(() => {
-        if (flightAnnouncement && flightStatus !== 'Canceled') {
-            setMuzakState(Sound.status.PAUSED)
-            setDingState(Sound.status.PLAYING)
+        if (flightAnnouncement) {
+           setAudioState(AUDIO_PLAYING_STATES.DING_PLAYING)
         }
     }, [flightAnnouncement, flightStatus])
 
-    useMemo(() => {
-        if (flightAnnouncement && flightStatus !== 'Canceled') {
-            setAnnouncementFile(findAudio(flightAnnouncement))
+    const announcementFile = useMemo(() => {
+        if (flightAnnouncement) {
+           return findAudio(flightAnnouncement)
         }
     }, [flightAnnouncement, flightStatus])
 
     return audioCanPlay === AUDIO_CAN_PLAY.YES ? (
         <Fragment>
-            <Sound playStatus={muzakState} autoload loop url={muzak} />
+           {/**  <Sound playStatus={muzakState} autoload loop url={muzak} />*/}
 
             <Sound
-                playStatus={dingState}
-                onFinishedPlaying={() => setDingState(Sound.status.PAUSED)}
+                playStatus={audioState === AUDIO_PLAYING_STATES.DING_PLAYING ? Sound.status.PLAYING : Sound.status.PAUSED}
+                // when we've finished the ding, start the announement
+                onFinishedPlaying={() => setAudioState(AUDIO_PLAYING_STATES.FLIGHT_ANNOUNCEMENT_PLAYING)}
                 autoload
                 url={ding}
             />
@@ -92,16 +95,15 @@ const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
             {flightAnnouncement ? (
                 <Sound
                     playStatus={
-                        muzakState === Sound.status.PLAYING || // wait for both the muzak and ding to finish before talking
-                        dingState === Sound.status.PLAYING
-                            ? Sound.status.PAUSED
-                            : Sound.status.PLAYING
+                  audioState == AUDIO_PLAYING_STATES.FLIGHT_ANNOUNCEMENT_PLAYING
+                            ? Sound.status.PLAYING
+                            : Sound.status.PAUSED
                     }
                     onFinishedPlaying={handleAnnouncementEnd}
                     autoload
                     url={announcementFile}
                 />
-            ) : null}
+                ) : null}
         </Fragment>
     ) : audioCanPlay === AUDIO_CAN_PLAY.NO ? (
         <StartAudioPopup></StartAudioPopup>
