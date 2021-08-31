@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState, useMemo, useRef } from 'react'
 import PropTypes from 'prop-types'
 import Sound from 'react-sound'
-import muzak from './sound/muzak.mp3'
 import { findAudio } from './api/audioUtils'
 import silence from './sound/silence.mp3'
 import ding from './sound/ding.wav'
@@ -25,7 +24,7 @@ const AUDIO_CAN_PLAY = {
     NO: 'NO',
 }
 
-const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
+const FlightMusicPlayer = ({ flightAnnouncement }) => {
     // In chrome until the user interacts (unless we start chrome with a certain flag chrome.exe --autoplay-policy=no-user-gesture-required)
     const [audioCanPlay, setAudioCanPlay] = useState()
   
@@ -72,18 +71,16 @@ const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
         if (flightAnnouncement) {
            setAudioState(AUDIO_PLAYING_STATES.DING_PLAYING)
         }
-    }, [flightAnnouncement, flightStatus])
+    }, [flightAnnouncement])
 
     const announcementFile = useMemo(() => {
         if (flightAnnouncement) {
            return findAudio(flightAnnouncement)
         }
-    }, [flightAnnouncement, flightStatus])
+    }, [flightAnnouncement])
 
     return audioCanPlay === AUDIO_CAN_PLAY.YES ? (
         <Fragment>
-           {/**  <Sound playStatus={muzakState} autoload loop url={muzak} />*/}
-
             <Sound
                 playStatus={audioState === AUDIO_PLAYING_STATES.DING_PLAYING ? Sound.status.PLAYING : Sound.status.PAUSED}
                 // when we've finished the ding, start the announement
@@ -95,7 +92,7 @@ const FlightMusicPlayer = ({ flightAnnouncement, flightStatus }) => {
             {flightAnnouncement ? (
                 <Sound
                     playStatus={
-                  audioState == AUDIO_PLAYING_STATES.FLIGHT_ANNOUNCEMENT_PLAYING
+                  audioState === AUDIO_PLAYING_STATES.FLIGHT_ANNOUNCEMENT_PLAYING
                             ? Sound.status.PLAYING
                             : Sound.status.PAUSED
                     }

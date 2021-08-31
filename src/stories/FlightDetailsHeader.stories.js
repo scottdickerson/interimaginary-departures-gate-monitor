@@ -1,6 +1,6 @@
 import React from "react";
 import FlightDetailsHeader from "../FlightDetailsHeader";
-import testImage from "../imgs/wistful.png";
+import testImage from "../imgs/Wistful.png";
 
 export default {
   title: "Flight Details Header"

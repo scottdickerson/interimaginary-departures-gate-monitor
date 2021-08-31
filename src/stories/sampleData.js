@@ -1,5 +1,5 @@
-import wistful from "../imgs/wistful.png";
-import quantum from "../imgs/quantum.png";
+import wistful from "../imgs/Wistful.png";
+import quantum from "../imgs/Quantum.png";
 export const flights = [
   {
     status: "On Time",
