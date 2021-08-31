@@ -8,14 +8,14 @@ import StartAudioPopup from './StartAudioPopup'
 
 const propTypes = {
     /** the audio file to play */
-    flightAnnouncement: PropTypes.string.isRequired,
-    flightStatus: PropTypes.oneOf(['Normal', 'Canceled']).isRequired,
+    flightAnnouncement: PropTypes.string,
+    flightStatus: PropTypes.oneOf(['Normal', 'Canceled', 'On Time']),
 }
 
 const AUDIO_PLAYING_STATES = {
     FLIGHT_ANNOUNCEMENT_PLAYING: 'FLIGHT_ANNOUNCEMENT_PLAYING',
     DING_PLAYING: 'DING_PLAYING',
-    NOTHING_PLAYING: 'NOTHING_PLAYING'
+    NOTHING_PLAYING: 'NOTHING_PLAYING',
 }
 
 const AUDIO_CAN_PLAY = {
@@ -27,8 +27,10 @@ const AUDIO_CAN_PLAY = {
 const FlightMusicPlayer = ({ flightAnnouncement }) => {
     // In chrome until the user interacts (unless we start chrome with a certain flag chrome.exe --autoplay-policy=no-user-gesture-required)
     const [audioCanPlay, setAudioCanPlay] = useState()
-  
-    const [audioState, setAudioState] = useState(AUDIO_PLAYING_STATES.NOTHING_PLAYING)
+
+    const [audioState, setAudioState] = useState(
+        AUDIO_PLAYING_STATES.DING_PLAYING
+    )
     const silenceMP3Ref = useRef()
 
     // If we are not allowed to play audio, listen for the click to turn it on
@@ -63,28 +65,36 @@ const FlightMusicPlayer = ({ flightAnnouncement }) => {
 
     // once the announcement finishes, SILENCE!
     const handleAnnouncementEnd = () => {
-      setAudioState(AUDIO_PLAYING_STATES.NOTHING_PLAYING)
+        setAudioState(AUDIO_PLAYING_STATES.NOTHING_PLAYING)
     }
 
     // if the sound file changes pause the muzak until it finishes, then play the ding
     useEffect(() => {
         if (flightAnnouncement) {
-           setAudioState(AUDIO_PLAYING_STATES.DING_PLAYING)
+            setAudioState(AUDIO_PLAYING_STATES.DING_PLAYING)
         }
     }, [flightAnnouncement])
 
     const announcementFile = useMemo(() => {
         if (flightAnnouncement) {
-           return findAudio(flightAnnouncement)
+            return findAudio(flightAnnouncement)
         }
     }, [flightAnnouncement])
 
     return audioCanPlay === AUDIO_CAN_PLAY.YES ? (
         <Fragment>
             <Sound
-                playStatus={audioState === AUDIO_PLAYING_STATES.DING_PLAYING ? Sound.status.PLAYING : Sound.status.PAUSED}
+                playStatus={
+                    audioState === AUDIO_PLAYING_STATES.DING_PLAYING
+                        ? Sound.status.PLAYING
+                        : Sound.status.PAUSED
+                }
                 // when we've finished the ding, start the announement
-                onFinishedPlaying={() => setAudioState(AUDIO_PLAYING_STATES.FLIGHT_ANNOUNCEMENT_PLAYING)}
+                onFinishedPlaying={() =>
+                    setAudioState(
+                        AUDIO_PLAYING_STATES.FLIGHT_ANNOUNCEMENT_PLAYING
+                    )
+                }
                 autoload
                 url={ding}
             />
@@ -100,7 +110,7 @@ const FlightMusicPlayer = ({ flightAnnouncement }) => {
                     autoload
                     url={announcementFile}
                 />
-                ) : null}
+            ) : null}
         </Fragment>
     ) : audioCanPlay === AUDIO_CAN_PLAY.NO ? (
         <StartAudioPopup></StartAudioPopup>

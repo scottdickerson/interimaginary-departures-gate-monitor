@@ -12,13 +12,14 @@ import isEmpty from 'lodash/isEmpty'
 import { fetchAllFlights } from './api/FlightsActions'
 import { useSelector, useDispatch } from 'react-redux'
 
-// const DEFAULT_FLIGHT_SEPARATION = 0;
-
 /**
  * NOTE: all the flight delay stuff (setFlightDelay) is for the test mode where we run across all the times
  * @returns
  */
 function App() {
+    // app runs in test mode quickly iterating through the items
+    const TEST_MODE = window?.location?.pathname?.includes('/test')
+    console.log('pathname', window?.location?.pathname)
     const [currentTime, setCurrentTime] = useState(moment().valueOf())
     const [currentDay, setCurrentDay] = useState(moment().day())
     const dispatch = useDispatch()
@@ -37,36 +38,21 @@ function App() {
         return flight.departureTime > currentTime
     })
 
-    // // If the flight delay changes restart the time at 5 am TEST_MODE
-    // useEffect(()=> {
-    //   if (flightDelay > 0) {
-    //     loadAndSetFlights(7); // special request for alphabetical flights
-    //     setCurrentTime(moment().hour(4).minute(55).second(0).millisecond(0).valueOf())
-    //   }
-    // }, [flightDelay])
-
     // update the current time every 10 seconds
     useEffect(() => {
         const interval = setInterval(
             () => {
                 setCurrentTime((currentTime) =>
-                    // flightDelay    //TEST_MODE
-                    //   ? moment(currentTime)
-                    //       .add(3.5, "minutes")
-                    //       .valueOf()
-                    //   :
-                    moment().valueOf()
+                    TEST_MODE // if we're in test mode don't use the real time
+                        ? moment(currentTime).add(3.5, 'minutes').valueOf()
+                        : moment().valueOf()
                 )
                 setCurrentDay(moment().day())
             },
-            // flightDelay !== 0 ? flightDelay * 1000 :  //TEST_MODE
-            10000
+            TEST_MODE ? 30000 : 10000
         )
         return () => clearInterval(interval)
-    }, [
-        // flightDelay, TEST_MODE
-        setCurrentTime,
-    ])
+    }, [TEST_MODE, setCurrentTime])
 
     const displayedFlights = useMemo(
         () =>
@@ -86,11 +72,14 @@ function App() {
         <Fragment>
             <FlightMusicPlayer
                 flightAnnouncement={
-                    !isEmpty(displayedFlights) &&
-                    displayedFlights[0].destination
+                    !isEmpty(displayedFlights)
+                        ? displayedFlights[0].destination
+                        : null
                 }
                 flightStatus={
-                    !isEmpty(displayedFlights) && displayedFlights[0].status
+                    !isEmpty(displayedFlights)
+                        ? displayedFlights[0].status
+                        : null
                 }
             />
 
