@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { FlightDetailsCardPropTypes } from './FlightDetailsCard'
 import styles from './FlightDetailsBoard.module.css'
 import FlightDetailsCard from './FlightDetailsCard'
-import logo from './imgs/InterimaginaryDepartures-logo.png'
+//import logo from './imgs/InterimaginaryDepartures-logo.png'
 import { useSelector } from 'react-redux'
 
 const propTypes = {
@@ -24,7 +24,8 @@ const FlightDetailsBoard = ({ flights }) => {
     return (
         <div className={styles.board}>
             <div className={styles.title}>
-                <img alt="Interimaginary Departures" src={logo} />
+                {/*<img alt="Interimaginary Departures" src={logo} />*/}
+                <h2>Interimaginary Departures</h2>
             </div>
 
             <div className={styles.cards}>
