@@ -29,15 +29,6 @@
     margin-bottom: 4rem;
     height: 218px;
 }
-.title h2 {
-    font-family: Didot;
-    color: white;
-    font-weight: 100;
-    margin-bottom: 5rem;
-    margin-left: -13px;
-    font-size: 165px;
-    white-space: nowrap;
-}
 
 @media only screen and (max-width: 1680px) {
     .title img {

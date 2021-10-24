@@ -12,8 +12,6 @@ import isEmpty from 'lodash/isEmpty'
 import { fetchAllFlights } from './api/FlightsActions'
 import { useSelector, useDispatch } from 'react-redux'
 
-const TEST_GATE_DELAY = 50000
-
 /**
  * NOTE: all the flight delay stuff (setFlightDelay) is for the test mode where we run across all the times
  * @returns
@@ -51,7 +49,7 @@ function App() {
                 )
                 setCurrentDay(moment().day())
             },
-            TEST_MODE ? TEST_GATE_DELAY : 10000
+            TEST_MODE ? 30000 : 10000
         )
         return () => clearInterval(interval)
     }, [TEST_MODE, setCurrentTime])
